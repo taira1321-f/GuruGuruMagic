@@ -13,7 +13,7 @@ public class HomeDirector : MonoBehaviour {
     const float cnt_max = 1.0f;
     int h_ix, old_ix;
     const int ix_max = 3;
-    public string dir = "touch";
+    string dir;
     Vector2 Spos, Epos;
     Vector3[] AngleZ = { 
                            new Vector3(0, 0, 0),
@@ -29,6 +29,7 @@ public class HomeDirector : MonoBehaviour {
         r_mode = ROLL.NONE;
         cnt = 0;
         h_ix = old_ix = 0;
+        dir = "touch";
 	}
 	void Update () {
         if (r_mode != ROLL.NONE) Roll_Button();

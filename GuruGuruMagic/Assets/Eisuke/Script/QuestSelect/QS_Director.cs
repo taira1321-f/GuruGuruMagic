@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QS_Director : MonoBehaviour {
     enum SWIPE { NONE, LEFT, RIGHT };
@@ -42,20 +43,9 @@ public class QS_Director : MonoBehaviour {
             Quaternion q1 = Quaternion.Euler(Quest_Index[old_ix]);
             Quaternion q2 = Quaternion.Euler(Quest_Index[q_ix]);
             Center.transform.rotation = Quaternion.Lerp(q1, q2, cnt);
-            StageScale(q_ix, cnt);
         }else{
             s_type = SWIPE.NONE;
             cnt = 0;
-        }
-    }
-    void StageScale(int ix, float scale) {
-        scale = 1 + (scale * 0.5f);
-        CenterChild[ix].transform.localScale = new Vector3(scale, scale, 1);
-        bool[] check = new bool[child_max];
-        for (int i = 0; i < child_max; i++) check[i] = false;
-        for (int i = 0; i < child_max; i++) {
-            if (i != ix) check[i] = true;
-            if (check[i]) CenterChild[i].transform.localScale = new Vector3(1, 1, 1);
         }
     }
     void KeyGet(Vector2 mpos) {
@@ -97,5 +87,6 @@ public class QS_Director : MonoBehaviour {
     }
     public void QS_Button() {
         Debug.Log("q_ix" + q_ix);
+        if (q_ix == 5) SceneManager.LoadScene("HomeScene");
     }
 }

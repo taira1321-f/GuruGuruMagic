@@ -7,42 +7,44 @@ public class CS_Director : MonoBehaviour {
     enum SWIPE { NONE, LEFT, RIGHT };
     SWIPE s_type;
     public GameObject center;
-    Vector2 spos = new Vector2(0, 0);
-    Vector2 epos = new Vector2(0, 0);
-    Vector3 dpos;
+    Vector2 spos,epos;
     float cnt;
     const float cnt_max = 1.0f;
-    int c_ix;
-    const int ix_max = 4;
+    int c_ix,old_ix;
+    const int ix_max = 5;
     Vector3[] Chara_Index = { 
-                                new Vector3(  0,0,0),
-                                new Vector3( -5,0,0),
-                                new Vector3(-10,0,0),
-                                new Vector3(-15,0,0),
+                                new Vector3(0,0,0),
+                                new Vector3(0,72,0),
+                                new Vector3(0,144,0),
+                                new Vector3(0,216,0),
+                                new Vector3(0,288,0),
                             };
 	void Start () {
         QualitySettings.vSyncCount = 0;     //VSyncをOFFにする
         Application.targetFrameRate = 60;   //ターゲットフレームレート
         cnt = 0;
-        c_ix = 0;
-        dpos = spos - epos;
+        c_ix = old_ix = 0;
 	}
 	
 	void Update () {
-        if (s_type != SWIPE.NONE) Slide_Sprite();
+        if (s_type != SWIPE.NONE) Swipe_Roll();
         else KeyGet(Input.mousePosition);
 	}
-    void Slide_Sprite() {
-        center.transform.position += dpos * 5.0f * Time.deltaTime;
-        cnt += Time.deltaTime;
-        dpos = (Chara_Index[c_ix] - center.transform.position) * cnt * 1.25f;
-        if (cnt >= cnt_max){
-            center.transform.position = Chara_Index[c_ix];
-            cnt = 0;
+    void Swipe_Roll() {
+        if (cnt <= cnt_max)
+        {
+            cnt += Time.deltaTime;
+            Quaternion q1 = Quaternion.Euler(Chara_Index[old_ix]);
+            Quaternion q2 = Quaternion.Euler(Chara_Index[c_ix]);
+            center.transform.rotation = Quaternion.Lerp(q1, q2, cnt);
+        }
+        else
+        {
             s_type = SWIPE.NONE;
-            
+            cnt = 0;
         }
     }
+    
     void KeyGet(Vector2 mpos) {
         
         if (Input.GetMouseButtonDown(0)){
@@ -65,21 +67,16 @@ public class CS_Director : MonoBehaviour {
         switch (dir) {
             case "right":
                 s_type = SWIPE.RIGHT;
+                old_ix = c_ix;
                 c_ix--;
                 break;
             case "left":
                 s_type = SWIPE.LEFT;
+                old_ix = c_ix;
                 c_ix++;
                 break;
         }
-        if (c_ix >= ix_max) c_ix = ix_max - 1;
-        else if (c_ix < 0) c_ix = 0;
-    }
-    public void Select_Chara() {
-        PlayerPrefs.SetInt("SelectCharactor", c_ix);
-        SceneManager.LoadScene("HomeScene");
-    }
-    public void HomeBack() {
-        SceneManager.LoadScene("HomeScene");
+        if (c_ix >= ix_max) c_ix = 0;
+        else if (c_ix < 0) c_ix = ix_max - 1;
     }
 }
