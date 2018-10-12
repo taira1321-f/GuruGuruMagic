@@ -88,5 +88,9 @@ public class QS_Director : MonoBehaviour {
     public void QS_Button() {
         Debug.Log("q_ix" + q_ix);
         if (q_ix == 5) SceneManager.LoadScene("HomeScene");
+        else {
+            PlayerPrefs.SetInt("SelectQuest", q_ix);
+            SceneManager.LoadScene("D_Main");
+        }
     }
 }

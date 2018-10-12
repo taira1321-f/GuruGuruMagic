@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Eisuke/Scene/D_main.unity
     guid: 1ef5acfcd1462c24b976363b1aa76cda
+  - enabled: 1
+    path: Assets/Eisuke/Scene/ResultScene.unity
+    guid: 36e319876dbc17f43b862f97c3121897

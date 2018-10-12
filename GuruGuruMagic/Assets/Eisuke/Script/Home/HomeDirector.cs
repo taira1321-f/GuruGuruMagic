@@ -8,7 +8,7 @@ public class HomeDirector : MonoBehaviour {
     ROLL r_mode;
     public GameObject ShowCharactor;
     public GameObject Center;
-    public Sprite[] SelectC; 
+    public Sprite[] SelectC;
     float cnt;
     const float cnt_max = 1.0f;
     int h_ix, old_ix;
