@@ -429,10 +429,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ed34f741ebfdc419669a22c2c676e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_Relation:
-  - {fileID: 494418609}
-  - {fileID: 1727798236}
-  - {fileID: 245998908}
+  CharaImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ImgObj: {fileID: 245998908}
 --- !u!4 &1092881416
 Transform:
   m_ObjectHideFlags: 0

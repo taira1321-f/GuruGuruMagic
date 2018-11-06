@@ -25,7 +25,7 @@ public class Look_UI_Button : MonoBehaviour {
     public void HomeBack() {
         SceneManager.LoadScene("HomeScene");
     }
-    public void CharaSelect() {
+    public void CharaSelectHomeBack() {
         int Chara_Ix =  Switch_Chara(gameObject.name);
         if (0 <= Chara_Ix && Chara_Ix <= 3) PlayerPrefs.SetInt("SelectCharactor", Chara_Ix);
         SceneManager.LoadScene("HomeScene");
@@ -42,7 +42,5 @@ public class Look_UI_Button : MonoBehaviour {
                 return 3;
         }
         return -1;
-
     }
-
 }
