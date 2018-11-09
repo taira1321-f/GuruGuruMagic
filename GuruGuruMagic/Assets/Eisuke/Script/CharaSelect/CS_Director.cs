@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class CS_Director : MonoBehaviour {
     enum SWIPE { NONE, LEFT, RIGHT };
     SWIPE s_type;
     public GameObject center;
+    public GameObject Canvas;
     Vector2 spos,epos;
     float cnt;
     const float cnt_max = 1.0f;
     int c_ix,old_ix;
     const int ix_max = 5;
+    bool StatusFlg;
+    public Sprite[] See_B = new Sprite[2];
     Vector3[] Chara_Index = { 
                                 new Vector3(0,0,0),
                                 new Vector3(0,72,0),
@@ -24,27 +27,28 @@ public class CS_Director : MonoBehaviour {
         Application.targetFrameRate = 60;   //ターゲットフレームレート
         cnt = 0;
         c_ix = old_ix = 0;
+        StatusFlg = false;
+        GameObject obj = Canvas.transform.Find("Chara_Status").gameObject;
+        obj.SetActive(StatusFlg);
+        
 	}
 	
 	void Update () {
         if (s_type != SWIPE.NONE) Swipe_Roll();
         else KeyGet(Input.mousePosition);
+        
 	}
     void Swipe_Roll() {
-        if (cnt <= cnt_max)
-        {
+        if (cnt <= cnt_max){
             cnt += Time.deltaTime;
             Quaternion q1 = Quaternion.Euler(Chara_Index[old_ix]);
             Quaternion q2 = Quaternion.Euler(Chara_Index[c_ix]);
             center.transform.rotation = Quaternion.Lerp(q1, q2, cnt);
-        }
-        else
-        {
+        }else{
             s_type = SWIPE.NONE;
             cnt = 0;
         }
     }
-    
     void KeyGet(Vector2 mpos) {
         
         if (Input.GetMouseButtonDown(0)){
@@ -78,5 +82,13 @@ public class CS_Director : MonoBehaviour {
         }
         if (c_ix >= ix_max) c_ix = 0;
         else if (c_ix < 0) c_ix = ix_max - 1;
+    }
+
+    public void StatusView(GameObject b_obj) {
+        StatusFlg = !StatusFlg;
+        GameObject obj = Canvas.transform.Find("Chara_Status").gameObject;
+        obj.SetActive(StatusFlg);
+        if (StatusFlg) b_obj.GetComponent<Image>().sprite = See_B[0];
+        else b_obj.GetComponent<Image>().sprite = See_B[1];
     }
 }

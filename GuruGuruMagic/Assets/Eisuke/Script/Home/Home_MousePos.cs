@@ -6,14 +6,11 @@ public class Home_MousePos : MonoBehaviour {
     GameObject Mouse = null;
     Vector3 ScreenMousePos;
     Vector3 WorldMousePos;
-    bool ClickFlg;
-    string CollName;
-    void Awake() {
-    }
+
     void Start () {
         Mouse = this.gameObject;
-        ClickFlg = true;
 	}
+    
     void Update(){
         ScreenMousePos = Input.mousePosition;
         WorldMousePos = Camera.main.ScreenToWorldPoint(ScreenMousePos);
