@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Look_UI_Button : MonoBehaviour {
 
-    public Transform target;
+    Vector3 target = new Vector3(0,0,2000);
 	void Update () {
         GetComponent<RectTransform>().LookAt(target);
 	}
@@ -24,23 +24,5 @@ public class Look_UI_Button : MonoBehaviour {
     }
     public void HomeBack() {
         SceneManager.LoadScene("HomeScene");
-    }
-    public void CharaSelectHomeBack() {
-        int Chara_Ix =  Switch_Chara(gameObject.name);
-        if (0 <= Chara_Ix && Chara_Ix <= 3) PlayerPrefs.SetInt("SelectCharactor", Chara_Ix);
-        SceneManager.LoadScene("HomeScene");
-    }
-    int Switch_Chara(string str) {
-        switch (str) {
-            case "Chara1":
-                return 0;
-            case "Chara2":
-                return 1;
-            case "Chara3":
-                return 2;
-            case "Chara4":
-                return 3;
-        }
-        return -1;
     }
 }

@@ -24,4 +24,22 @@ public class SeeButton : MonoBehaviour {
         C_Active = !C_Active;
         Debug.Log("( ﾟдﾟ)");
     }
+    public void CharaSelectHomeBack(GameObject obj){
+        Debug.Log(obj.name);
+        int Chara_Ix = Switch_Chara(obj.name);
+        if (0 <= Chara_Ix && Chara_Ix <= 3) PlayerPrefs.SetInt("SelectCharactor", Chara_Ix);
+    }
+    int Switch_Chara(string str){
+        switch (str){
+            case "Chara1":
+                return 0;
+            case "Chara2":
+                return 1;
+            case "Chara3":
+                return 2;
+            case "Chara4":
+                return 3;
+        }
+        return -1;
+    } 
 }
