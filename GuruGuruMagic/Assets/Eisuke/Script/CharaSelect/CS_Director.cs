@@ -123,7 +123,7 @@ public class CS_Director : MonoBehaviour {
     //StatusPanelのボタン
     public void StatusBack() {
         animator = StatusPanel.GetComponent<Animator>();
-        animator.SetBool("Open", false);
+        animator.SetBool("Close", true);
     }
 //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 }
