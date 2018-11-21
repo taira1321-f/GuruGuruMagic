@@ -3,7 +3,23 @@ guid: 98e353f3ec4046b409b034c266000775
 timeCreated: 1541644529
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: "086\u304B\u306A\u305303_0"
+    21300002: "086\u304B\u306A\u305303_1"
+    21300004: "086\u304B\u306A\u305303_2"
+    21300006: "086\u304B\u306A\u305303_3"
+    21300008: "086\u304B\u306A\u305303_4"
+    21300010: "086\u304B\u306A\u305303_5"
+    21300012: "086\u304B\u306A\u305303_6"
+    21300014: "086\u304B\u306A\u305303_7"
+    21300016: "086\u304B\u306A\u305303_8"
+    21300018: "086\u304B\u306A\u305303_9"
+    21300020: "086\u304B\u306A\u305303_10"
+    21300022: "086\u304B\u306A\u305303_11"
+    21300024: "086\u304B\u306A\u305303_12"
+    21300026: "086\u304B\u306A\u305303_13"
+    21300028: "086\u304B\u306A\u305303_14"
+    21300030: "086\u304B\u306A\u305303_15"
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -40,14 +56,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -67,9 +82,243 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_0"
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 130
+        width: 40
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_1"
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 130
+        width: 40
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_2"
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 130
+        width: 40
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_3"
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 130
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_4"
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 130
+        width: 43
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_5"
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 130
+        width: 40
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_6"
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 130
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_7"
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 130
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_8"
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 1
+        width: 40
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_9"
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 1
+        width: 40
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_10"
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 1
+        width: 40
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_11"
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 1
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_12"
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 1
+        width: 43
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_13"
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 1
+        width: 40
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_14"
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 1
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "086\u304B\u306A\u305303_15"
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 1
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 
