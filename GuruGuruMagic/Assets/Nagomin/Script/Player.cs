@@ -17,34 +17,34 @@ public class Player : PlayerBase {
     }
 
 
-    //// ダメージ計算
-    //public int DamageCal(int power, Character.Elements type)
-    //{
-    //    float dmg;  // ダメージの基礎値
-    //    Character.Elements recipe;  // レシピの属性
+    // ダメージ計算
+    public int DamageCal(int power, Character.Elements type)
+    {
+        float dmg;  // ダメージの基礎値
+        Character.Elements recipe;  // レシピの属性
 
-    //    /* ダメージ計算式
-    //     * 1.キャラの攻撃力をダメージの基礎値にする
-    //     * 2.レシピを取得
-    //     * 3.得意属性であればプレイヤーのレベルに応じてダメージアップ
-    //     * 4.相手の属性相性を計算する
-    //     * 5.鍋の回し具合を計算に入れる
-    //     * */
+        /* ダメージ計算式
+         * 1.キャラの攻撃力をダメージの基礎値にする
+         * 2.レシピを取得
+         * 3.得意属性であればプレイヤーのレベルに応じてダメージアップ
+         * 4.相手の属性相性を計算する
+         * 5.鍋の回し具合を計算に入れる
+         * */
 
-    //    dmg = power;
-    //    recipe = GetRecipe();
-    //    if (recipe == type) dmg *= (1 / 20) * 2.0f;
-    //    dmg *= Correction(type);
+        dmg = power;
+        recipe = GetRecipe();
+        if (recipe == type) dmg *= (1 / 20) * 2.0f;
+        dmg *= Correction(type);
 
 
-    //    return (int)dmg;
-    //}
+        return (int)dmg;
+    }
 
-    //// レシピの取得(仮置き)
-    //public Character.Elements GetRecipe()
-    //{
-    //    return Elements.BLUE;
-    //}
+    // レシピの取得(仮置き)
+    public Character.Elements GetRecipe()
+    {
+        return Elements.BLUE;
+    }
 
     // 相性の判定
     float Correction(Character.Elements type)

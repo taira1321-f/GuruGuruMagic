@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    protected enum Elements
+    public enum Elements
     {
         NONE,
         RED,
