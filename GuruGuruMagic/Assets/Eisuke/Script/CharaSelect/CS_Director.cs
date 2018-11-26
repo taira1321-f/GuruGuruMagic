@@ -4,54 +4,37 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class CS_Director : MonoBehaviour {
-    /**************************変数宣言***************************/
+/**************************変数宣言***************************/
     //定数
-    enum SWIPE { NONE, LEFT, RIGHT };
-    const float cnt_max = 1.0f;
-    const int ix_max = 5;
+
     //プライベート変数
     Animator animator;
-    SWIPE s_type;
+    Animator CenterAnim;
     Vector2 spos,epos;
-    float cnt;
-    int c_ix,old_ix;
-    int Chara_num;
+    short Chara_num;
+    string DIR;
     //プライベート配列
-    Vector3[] Chara_Index = { new Vector3(0, 0, 0), new Vector3(0, 72, 0), new Vector3(0, 144, 0), new Vector3(0, 216, 0), new Vector3(0, 288, 0), };
+
     //パブリック変数
     public GameObject Center;
     public GameObject AgreePanel;
     public GameObject StatusPanel;
     //パブリック配数
     public Sprite[] Chara_Image = new Sprite[4];
-    /******************************関数*****************************/
+/******************************関数*****************************/
     void Start () {
+        CenterAnim = Center.GetComponent<Animator>();
         QualitySettings.vSyncCount = 0;     //VSyncをOFFにする
-        Application.targetFrameRate = 60;   //ターゲットフレームレート
-        cnt = 0;
-        c_ix = old_ix = 0;
+        Application.targetFrameRate = 30;   //ターゲットフレームレート
 	}
 	void Update () {
-        if (s_type != SWIPE.NONE) Swipe_Roll();
-        else KeyGet(Input.mousePosition);
+        KeyGet(Input.mousePosition);
 	}
-    //選択回転処理
-    void Swipe_Roll() {
-        if (cnt <= cnt_max){
-            cnt += Time.deltaTime;
-            Quaternion q1 = Quaternion.Euler(Chara_Index[old_ix]);
-            Quaternion q2 = Quaternion.Euler(Chara_Index[c_ix]);
-            Center.transform.rotation = Quaternion.Lerp(q1, q2, cnt);
-        }else{
-            s_type = SWIPE.NONE;
-            cnt = 0;
-        }
-    }
+    
     //入力関係
     void KeyGet(Vector2 mpos) {
         if (Input.GetMouseButtonDown(0)){
             spos = new Vector2(mpos.x, mpos.y);
-            cnt = 0;
         }
         if (Input.GetMouseButtonUp(0)){
             epos = new Vector2(mpos.x, mpos.y);
@@ -61,26 +44,45 @@ public class CS_Director : MonoBehaviour {
     void GetDirection(Vector2 s,Vector2 e) {
         float dirX = e.x - s.x;
         float dirY = e.y - s.y;
-        string dir = "none";
+        string dir = DIR = "none";
         if (Mathf.Abs(dirY) < Mathf.Abs(dirX)){
             if (30 < dirX) dir = "right";
             if (-30 > dirX) dir = "left";
+        }else if (Mathf.Abs(dirY) > Mathf.Abs(dirX)){
+            if (30 < dirY) dir = "up";
+            if (-30 > dirY) dir = "down";
         }else dir = "touch";
+        DIR = dir;
         switch (dir) {
-            case "right":
-                s_type = SWIPE.RIGHT;
-                old_ix = c_ix;
-                c_ix--;
-                break;
             case "left":
-                s_type = SWIPE.LEFT;
-                old_ix = c_ix;
-                c_ix++;
+                CenterAnim.SetTrigger("Trigger");
+                break;
+            case "right":
+                float y = Center.transform.eulerAngles.y;
+                AnimCheckTrigger(y);
                 break;
         }
-        if (c_ix >= ix_max) c_ix = 0;
-        else if (c_ix < 0) c_ix = ix_max - 1;
     }
+    void AnimCheckTrigger(float angle) {
+        switch ((int)angle) {
+            case 0:
+                CenterAnim.SetTrigger("Chara1-H");
+                break;
+            case 72:
+                CenterAnim.SetTrigger("H-Chara4");
+                break;
+            case 144:
+                CenterAnim.SetTrigger("Chara4-3");
+                break;
+            case 216:
+                CenterAnim.SetTrigger("Chara3-2");
+                break;
+            case 288:
+                CenterAnim.SetTrigger("Chara2-1");
+                break;
+        }
+    }
+
 //↓↓↓↓↓↓↓↓↓↓↓↓↓ボタン関連↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     //ホームに戻る
     public void HomeBack() {
@@ -88,13 +90,15 @@ public class CS_Director : MonoBehaviour {
     }
     //キャラ選択
     public void CharaSelect(GameObject obj_b) {
-        GameObject obj = AgreePanel.transform.Find("Image").gameObject;
-        Chara_num = Chara_name(obj_b.name);
-        obj.GetComponent<Image>().sprite = Chara_Image[Chara_num];
-        animator = AgreePanel.GetComponent<Animator>();
-        animator.SetBool("Open", true);  
+        if (DIR == "touch"){
+            GameObject obj = AgreePanel.transform.Find("SelectChara_Img").gameObject;
+            Chara_num = Chara_name(obj_b.name);
+            obj.GetComponent<Image>().sprite = Chara_Image[Chara_num];
+            animator = AgreePanel.GetComponent<Animator>();
+            animator.SetTrigger("OpenTrigger");
+        }
     }
-    int Chara_name(string str) {
+    short Chara_name(string str) {
         switch (str) {
             case "Chara1":
                 return 0;
@@ -114,16 +118,16 @@ public class CS_Director : MonoBehaviour {
     }
     public void Status_B() {
         animator = StatusPanel.GetComponent<Animator>();
-        animator.SetBool("Open", true);
+        animator.SetTrigger("OS_Trigger");
     }
     public void Cancel_B() {
         animator = AgreePanel.GetComponent<Animator>();
-        animator.SetBool("Open", false);
+        animator.SetTrigger("CloseTrigger");
     }
     //StatusPanelのボタン
     public void StatusBack() {
         animator = StatusPanel.GetComponent<Animator>();
-        animator.SetBool("Close", true);
+        animator.SetTrigger("CS_Trigger");
     }
 //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 }

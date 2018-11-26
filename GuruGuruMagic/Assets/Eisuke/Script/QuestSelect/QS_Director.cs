@@ -4,55 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class QS_Director : MonoBehaviour {
-    enum SWIPE { NONE, LEFT, RIGHT };
-    SWIPE s_type;
-    public GameObject Center;
-    const int child_max = 6;
-    GameObject[] CenterChild = new GameObject[child_max];
+    string DIR;
+    Animator Center_Anim;
     Vector2 Spos = new Vector2(0, 0);
     Vector2 Epos = new Vector2(0, 0);
-    float cnt;
-    const float cnt_max = 1.0f;
-    int q_ix,old_ix;
-    const int ix_max = 6;
-    Vector3[] Quest_Index = {
-                                new Vector3(0,0,0),
-                                new Vector3(0,0,60),
-                                new Vector3(0,0,120),
-                                new Vector3(0,0,180),
-                                new Vector3(0,0,240),
-                                new Vector3(0,0,300),
-                            };
+    public GameObject QS_Center;
     void Start () {
-        QualitySettings.vSyncCount = 0;     //VSyncをOFFにする
-        Application.targetFrameRate = 60;   //ターゲットフレームレート
-        cnt = 0;
-        q_ix = old_ix = 0;
-        int c_cnt = Center.transform.childCount;
-        for (int i = 0; i < c_cnt; i++) {
-            CenterChild[i] = Center.transform.GetChild(i).gameObject;    
-        }
+        Center_Anim = QS_Center.GetComponent<Animator>();
 	}   
 	void Update () {
-        if (s_type != SWIPE.NONE) Roll_Sprite();
-        else KeyGet(Input.mousePosition);
+        KeyGet(Input.mousePosition);
 	}
-    void Roll_Sprite() {
-        if (cnt <= cnt_max) {
-            cnt += Time.deltaTime;
-            Quaternion q1 = Quaternion.Euler(Quest_Index[old_ix]);
-            Quaternion q2 = Quaternion.Euler(Quest_Index[q_ix]);
-            Center.transform.rotation = Quaternion.Lerp(q1, q2, cnt);
-        }else{
-            s_type = SWIPE.NONE;
-            cnt = 0;
-        }
-    }
+    
     void KeyGet(Vector2 mpos) {
-        if (Input.GetMouseButtonDown(0)) {
-            Spos = new Vector2(mpos.x, mpos.y);
-            cnt = 0;
-        }
+        if (Input.GetMouseButtonDown(0)) Spos = new Vector2(mpos.x, mpos.y);
         if (Input.GetMouseButtonUp(0)) {
             Epos = new Vector2(mpos.x, mpos.y);
             GetDirction(Spos,Epos);
@@ -62,7 +27,6 @@ public class QS_Director : MonoBehaviour {
         float dirX = e.x - s.x;
         float dirY = e.y - s.y;
         string dir = "none";
-        s_type = SWIPE.NONE;
         if (Mathf.Abs(dirY) < Mathf.Abs(dirX)){
             if (30 < dirX) dir = "right";
             if (-30 > dirX) dir = "left";
@@ -70,27 +34,65 @@ public class QS_Director : MonoBehaviour {
             if (30 < dirY) dir = "up";
             if (-30 > dirY) dir = "down";
         }else dir = "touch";
+        DIR = dir;
         switch (dir){
-            case "right":
-                s_type = SWIPE.RIGHT;
-                old_ix = q_ix;
-                q_ix--;
-                break;
             case "left":
-                s_type = SWIPE.LEFT;
-                old_ix = q_ix;
-                q_ix++;
+                Center_Anim.SetTrigger("Trigger");
+                break;
+            case "right":
+                float angleZ = QS_Center.transform.eulerAngles.z;
+                AnimTriggerCheck(angleZ);
                 break;
         }
-        if (q_ix >= ix_max) q_ix = 0;
-        if (q_ix < 0) q_ix = ix_max - 1;
     }
-    public void QS_Button() {
-        Debug.Log("q_ix" + q_ix);
-        if (q_ix == 5) SceneManager.LoadScene("HomeScene");
-        else {
-            PlayerPrefs.SetInt("SelectQuest", q_ix);
-            SceneManager.LoadScene("D_Main");
+    void AnimTriggerCheck(float angle) {
+        switch ((int)angle) {
+            case 0:
+                Center_Anim.SetTrigger("Stage1-Home");
+                break;
+            case 60:
+                Center_Anim.SetTrigger("Stage2-1");
+                break;
+            case 120:
+                Center_Anim.SetTrigger("Stage3-2");
+                break;
+            case 180:
+                Center_Anim.SetTrigger("Stage4-3");
+                break;
+            case 240:
+                Center_Anim.SetTrigger("Stage5-4");
+                break;
+            case 300:
+                Center_Anim.SetTrigger("Home-Stage5");
+                break;
+            
+        }
+    }
+    public void QS_Button(GameObject obj) {
+        if (DIR == "touch"){
+            Debug.Log(obj.name);
+            int i = QS_Select(obj.name);
+            Debug.Log(i);
+        }
+    }
+    short QS_Select(string str) {
+        switch (str){
+            case "Stage01":
+                return 1;
+            case "Stage02":
+                return 2;
+            case "Stage03":
+                return 3;
+            case "Stage04":
+                return 4;
+            case "Stage05":
+                return 5;
+        }
+        return -1;
+    }
+    public void HomeBack(){
+        if (DIR == "touch"){
+            SceneManager.LoadScene("HomeScene");
         }
     }
 }

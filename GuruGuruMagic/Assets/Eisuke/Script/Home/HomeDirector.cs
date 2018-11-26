@@ -1,45 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class HomeDirector : MonoBehaviour {
     
-    enum ROLL { NONE, LEFT, RIGHT };
-    ROLL r_mode;
     public GameObject ShowCharactor;
     public GameObject Center;
     public Sprite[] SelectC;
-    float cnt;
+    Animator RollAnim;
     const float cnt_max = 1.0f;
-    int h_ix, old_ix;
-    const int ix_max = 3;
+    const float Anim_Speed = 1.0f;
     string dir;
     Vector2 Spos, Epos;
-    Vector3[] AngleZ = { 
-                           new Vector3(0, 0, 0),
-                           new Vector3(0, 0, 120),
-                           new Vector3(0, 0, 240),
-                       };
-    
-	void Start () {
+    void Start () {
         int sc = PlayerPrefs.GetInt("SelectCharactor");
-        ShowCharactor.GetComponent<SpriteRenderer>().sprite = SelectC[sc];
-        QualitySettings.vSyncCount = 0;     //VSyncをOFFにする
-        Application.targetFrameRate = 60;   //ターゲットフレームレート
-        r_mode = ROLL.NONE;
-        cnt = 0;
-        h_ix = old_ix = 0;
+        ShowCharactor.GetComponent<Image>().sprite = SelectC[sc];
+        RollAnim = Center.GetComponent<Animator>();
         dir = "touch";
 	}
 	void Update () {
-        if (r_mode != ROLL.NONE) Roll_Button();
-        else KeyGet(Input.mousePosition);
+        KeyGet(Input.mousePosition);
 	}
     void KeyGet(Vector2 mpos) {
-        if (Input.GetMouseButtonDown(0)) {
-            Spos = new Vector2(mpos.x, mpos.y);
-            cnt = 0;
-        }
+        if (Input.GetMouseButtonDown(0)) Spos = new Vector2(mpos.x, mpos.y);
         if (Input.GetMouseButtonUp(0)) {
             Epos = new Vector2(mpos.x, mpos.y);
             GetDirection();
@@ -48,38 +32,45 @@ public class HomeDirector : MonoBehaviour {
     void GetDirection() {
         float dirX = Epos.x - Spos.x;
         float dirY = Epos.y - Spos.y;
-        r_mode = ROLL.NONE;
         if (Mathf.Abs(dirY) < Mathf.Abs(dirX)){
             if (30 < dirX) dir = "right";
             if (-30 > dirX) dir = "left";
-        }else if (Mathf.Abs(dirY) > Mathf.Abs(dirX)){
-            if (30 < dirY) dir = "up";
-            if (-30 > dirY) dir = "down";
-        }else dir = "touch";
+        }
+        else dir = "touch";
         switch (dir) {
-            case "right":
-                r_mode = ROLL.RIGHT;
-                old_ix = h_ix;
-                h_ix--;
-                break;
             case "left":
-                r_mode = ROLL.LEFT;
-                old_ix = h_ix;
-                h_ix++;
+                RollAnim.SetTrigger("Trigger");
+                break;
+            case "right":
+                float z = Center.transform.eulerAngles.z;
+                AnimTriggerCheck(z);
                 break;
         }
-        if (h_ix > ix_max - 1) h_ix = 0;
-        if (h_ix < 0) h_ix = ix_max - 1;
     }
-    void Roll_Button() {
-        if (cnt <= cnt_max) {
-            cnt += Time.deltaTime;
-            Quaternion q1 = Quaternion.Euler(AngleZ[old_ix]);
-            Quaternion q2 = Quaternion.Euler(AngleZ[h_ix]);
-            Center.transform.rotation = Quaternion.Lerp(q1, q2, cnt);
-        }else{
-            r_mode = ROLL.NONE;
-            cnt = 0;
-        }        
+    void AnimTriggerCheck(float angle) {
+        switch ((int)angle) {
+            case 0:
+                RollAnim.SetTrigger("Q-T");
+                break;
+            case 120:
+                RollAnim.SetTrigger("C-Q");
+                break;
+            case 240:
+                RollAnim.SetTrigger("T-C");
+                break;
+        }
+    }
+
+    public void QuestSelect() {
+        SceneManager.LoadScene("QuestSelect");
+    }
+    public void CharaSelect() {
+        SceneManager.LoadScene("CharaSelect");
+    }
+    public void TitleBack() {
+        SceneManager.LoadScene("TitleScene");
+    }
+    public void HELP() {
+        Debug.Log("ヤバイ");
     }
 }
