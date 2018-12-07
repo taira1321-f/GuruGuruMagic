@@ -11,6 +11,7 @@ public class QS_Director : MonoBehaviour {
     public GameObject QS_Center;
     void Start () {
         Center_Anim = QS_Center.GetComponent<Animator>();
+        Application.targetFrameRate = 30;
 	}   
 	void Update () {
         KeyGet(Input.mousePosition);
@@ -26,16 +27,16 @@ public class QS_Director : MonoBehaviour {
     void GetDirction(Vector2 s, Vector2 e) {
         float dirX = e.x - s.x;
         float dirY = e.y - s.y;
-        string dir = "none";
+        DIR = "none";
         if (Mathf.Abs(dirY) < Mathf.Abs(dirX)){
-            if (30 < dirX) dir = "right";
-            if (-30 > dirX) dir = "left";
+            if (30 < dirX) DIR = "right";
+            if (-30 > dirX) DIR = "left";
         }else if (Mathf.Abs(dirY) > Mathf.Abs(dirX)){
-            if (30 < dirY) dir = "up";
-            if (-30 > dirY) dir = "down";
-        }else dir = "touch";
-        DIR = dir;
-        switch (dir){
+            if (30 < dirY) DIR = "up";
+            if (-30 > dirY) DIR = "down";
+        }else DIR = "touch";
+
+        switch (DIR){
             case "left":
                 Center_Anim.SetTrigger("Trigger");
                 break;
@@ -72,20 +73,27 @@ public class QS_Director : MonoBehaviour {
         if (DIR == "touch"){
             Debug.Log(obj.name);
             int i = QS_Select(obj.name);
+            PlayerPrefs.SetInt("SelectStage", i);
             Debug.Log(i);
+            SceneManager.LoadScene("ResultScene");
         }
     }
     short QS_Select(string str) {
         switch (str){
             case "Stage01":
+                PlayerPrefs.SetInt("getExp", 10);
                 return 1;
             case "Stage02":
+                PlayerPrefs.SetInt("getExp", 150);
                 return 2;
             case "Stage03":
+                PlayerPrefs.SetInt("getExp", 200);
                 return 3;
             case "Stage04":
+                PlayerPrefs.SetInt("getExp", 250);
                 return 4;
             case "Stage05":
+                PlayerPrefs.SetInt("getExp", 300);
                 return 5;
         }
         return -1;

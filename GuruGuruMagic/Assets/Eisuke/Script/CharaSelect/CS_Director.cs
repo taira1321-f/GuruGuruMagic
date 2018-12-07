@@ -24,8 +24,6 @@ public class CS_Director : MonoBehaviour {
 /******************************関数*****************************/
     void Start () {
         CenterAnim = Center.GetComponent<Animator>();
-        QualitySettings.vSyncCount = 0;     //VSyncをOFFにする
-        Application.targetFrameRate = 30;   //ターゲットフレームレート
 	}
 	void Update () {
         KeyGet(Input.mousePosition);
