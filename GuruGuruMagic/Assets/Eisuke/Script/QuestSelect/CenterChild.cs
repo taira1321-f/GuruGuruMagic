@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public class CenterChild : MonoBehaviour {
+public class CenterChild : MonoBehaviour
+{
     [SerializeField]
     float _radius;
-    short cnt = 0;
     const short child = 6;
     Vector3 target = new Vector3(0, 0, 2000);
-    GameObject[] obj_child = new GameObject[child];
+    RectTransform[] rectT = new RectTransform[child];
 
     void Awake(){
         Deploy();
-        for (int i = 0; i < child; i++) obj_child[i] = gameObject.transform.GetChild(i).gameObject;
+        GameObject[] obj = new GameObject[child];
+        for (int i = 0; i < child; i++){
+            obj[i] = gameObject.transform.GetChild(i).gameObject;
+            rectT[i] = obj[i].GetComponent<RectTransform>();
+        }
     }
     void Update() {
-        if (gameObject.transform.rotation.z == 360) gameObject.transform.eulerAngles = new Vector3(0, 0, 0); 
-        if ((cnt++) % 30 == 0) {
-            cnt = 0;
-            for (int i = 0; i < child; i++) obj_child[i].GetComponent<RectTransform>().LookAt(target);
-        }
+        if (gameObject.transform.rotation.z == 360) gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        for (int i = 0; i < child; i++) rectT[i].LookAt(target);
     }
     void OnValidate(){
         Deploy();

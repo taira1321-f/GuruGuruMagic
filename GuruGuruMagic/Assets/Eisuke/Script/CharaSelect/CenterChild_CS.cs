@@ -5,21 +5,21 @@ using UnityEngine.SceneManagement;
 public class CenterChild_CS : MonoBehaviour {
     [SerializeField]
     float _radius;
-    int cnt = 0;
-    const int child = 5;
+    const short child = 5;
     Vector3 target = new Vector3(0, 0, 2000);
-    GameObject[] obj_child = new GameObject[child];
+    RectTransform[] rectT = new RectTransform[child];
 
     void Awake(){
         Deploy();
-        for (int i = 0; i < child; i++) obj_child[i] = gameObject.transform.GetChild(i).gameObject;
+        GameObject[] obj_child = new GameObject[child];
+        for (int i = 0; i < child; i++){
+            obj_child[i] = gameObject.transform.GetChild(i).gameObject;
+            rectT[i] = obj_child[i].GetComponent<RectTransform>();
+        } 
     }
     void Update(){
-        if (gameObject.transform.rotation.y == 360) gameObject.transform.eulerAngles = new Vector3(0, 0, 0); 
-        if ((cnt++) % 30 == 0){
-            cnt = 0;
-            for (int i = 0; i < child; i++) obj_child[i].GetComponent<RectTransform>().LookAt(target);
-        }
+        if (gameObject.transform.rotation.z == 360) gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        for (int i = 0; i < child; i++) rectT[i].LookAt(target);
     }
     void OnValidate(){
         Deploy();
