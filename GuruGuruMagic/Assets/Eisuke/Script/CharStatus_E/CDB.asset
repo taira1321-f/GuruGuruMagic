@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd07b1597e63541b6252760e6a9447, type: 3}
+  m_Name: CDB
+  m_EditorClassIdentifier: 
+  CharaDaraList:
+  - {fileID: 11400000, guid: cdabcdd4768f18e4baa4ea6b1c3ee05d, type: 2}
+  - {fileID: 11400000, guid: b56e32b554c639945a3ab543db088263, type: 2}
+  - {fileID: 11400000, guid: 7875ae3b5826c5d4a9b440dbc7e77baa, type: 2}
+  - {fileID: 11400000, guid: 6c385f475e73de8429754018d9d31c67, type: 2}

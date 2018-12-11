@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Eisuke/Scene/D_Title.unity
+    path: Assets/Eisuke/Scene/TitleScene.unity
     guid: 9567c96d26c4ff949b0af0e6c8dfddb6
   - enabled: 1
     path: Assets/Eisuke/Scene/HomeScene.unity
@@ -18,11 +18,5 @@ EditorBuildSettings:
     path: Assets/Eisuke/Scene/CharaSelect.unity
     guid: 9397e3a59a63fd8408d2781470570176
   - enabled: 1
-    path: Assets/Eisuke/Scene/D_ResultScene.unity
-    guid: e456d810866f7d64781f8c0b181ed81b
-  - enabled: 1
-    path: Assets/Eisuke/Scene/D_main.unity
-    guid: 1ef5acfcd1462c24b976363b1aa76cda
-  - enabled: 1
     path: Assets/Eisuke/Scene/ResultScene.unity
-    guid: 36e319876dbc17f43b862f97c3121897
+    guid: 99d00b683e72de24bbd8c6be6247df65
