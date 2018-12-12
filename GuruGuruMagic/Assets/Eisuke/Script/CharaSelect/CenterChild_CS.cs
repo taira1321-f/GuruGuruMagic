@@ -33,12 +33,12 @@ public class CenterChild_CS : MonoBehaviour {
             childList.Add(child.gameObject);
         }
         //数値、アルファベット順にソート
-        childList.Sort(
-          (a, b) =>
-          {
-              return string.Compare(a.name, b.name);
-          }
-        );
+        //childList.Sort(
+        //  (a, b) =>
+        //  {
+        //      return string.Compare(a.name, b.name);
+        //  }
+        //);
         //オブジェクト間の角度差
         float angleDiff = 360f / (float)childList.Count;
         //各オブジェクトを円状に配置

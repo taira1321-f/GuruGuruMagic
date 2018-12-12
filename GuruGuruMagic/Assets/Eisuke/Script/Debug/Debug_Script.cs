@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Debug_Script : MonoBehaviour {
     const int Chara_num =4;
@@ -11,12 +9,7 @@ public class Debug_Script : MonoBehaviour {
     E_EnemyStatus[] enemydata = new E_EnemyStatus[Enemy_num];
 	// Use this for initialization
 	void Start () {
-        for (int i = 0; i < Chara_num; i++) charadata[i] = cdb.CharaDaraList[i];
+        for (int i = 0; i < Chara_num; i++) charadata[i] = cdb.CharaDataList[i];
         for (int i = 0; i < Enemy_num; i++) enemydata[i] = esdb.ES_DataList[i];
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

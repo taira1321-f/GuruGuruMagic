@@ -81,19 +81,19 @@ public class QS_Director : MonoBehaviour {
     short QS_Select(string str) {
         switch (str){
             case "Stage01":
-                PlayerPrefs.SetInt("getExp", 10);
+                PlayerPrefs.SetInt("getExp", 26);
                 return 1;
             case "Stage02":
-                PlayerPrefs.SetInt("getExp", 150);
+                PlayerPrefs.SetInt("getExp", 39);
                 return 2;
             case "Stage03":
-                PlayerPrefs.SetInt("getExp", 200);
+                PlayerPrefs.SetInt("getExp", 70);
                 return 3;
             case "Stage04":
-                PlayerPrefs.SetInt("getExp", 250);
+                PlayerPrefs.SetInt("getExp", 113);
                 return 4;
             case "Stage05":
-                PlayerPrefs.SetInt("getExp", 300);
+                PlayerPrefs.SetInt("getExp", 137);
                 return 5;
         }
         return -1;

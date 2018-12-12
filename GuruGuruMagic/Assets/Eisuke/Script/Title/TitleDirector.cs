@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 public class TitleDirector : MonoBehaviour {
     //プライベート変数
@@ -8,11 +6,19 @@ public class TitleDirector : MonoBehaviour {
     Animator Title_anim;
     bool Flash_flg;
     short cnt = 0;
+    //CharaData[] cd = new CharaData[4];
     //パブリック変数
     public GameObject Rogo;
     public GameObject Canvas;
+    //public CharaDataBase cdb;
     void Awake() {
-
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    cd[i] = cdb.CharaDataList[i];
+        //    PlayerPrefs.SetInt("Chara_" + cd[i].Get_NAME() + "_Lv", 1);
+        //    PlayerPrefs.SetInt("Chara_" + cd[i].Get_NAME() + "_HaveExp", 0);
+        //}
+        //PlayerPrefs.Save();
     }
     void Start() {
         Flash_flg = true;
@@ -21,7 +27,6 @@ public class TitleDirector : MonoBehaviour {
         Title_anim.SetBool("FallFlg", true);
     }
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
         if (Title_anim.GetBool("FallFlg")){
             Flash_Text();
             if (Input.GetMouseButtonDown(0)){

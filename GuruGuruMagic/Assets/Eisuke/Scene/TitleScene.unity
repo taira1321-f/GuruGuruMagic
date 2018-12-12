@@ -236,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rogo: {fileID: 315343446}
   Canvas: {fileID: 59169986}
+  cdb: {fileID: 11400000, guid: 14b0fa354a6f9da468b99b75950b5396, type: 2}
 --- !u!4 &230258629
 Transform:
   m_ObjectHideFlags: 0

@@ -6,29 +6,30 @@ using UnityEngine.SceneManagement;
 public class CS_Director : MonoBehaviour {
 /**************************変数宣言***************************/
     //定数
-
+    const int Chara_Max = 4;
     //プライベート変数
-    Animator animator;
-    Animator CenterAnim;
-    Vector2 spos,epos;
-    short Chara_num;
+    int Lv,Exp;
     string DIR;
-    //プライベート配列
-
+    Animator StatusAnim, SelectAnim, CenterAnim;
+    Vector2 spos,epos;
+    RectTransform sp_rt;
+    CharaData s_cd;
     //パブリック変数
-    public GameObject Center;
-    public GameObject AgreePanel;
-    public GameObject StatusPanel;
-    //パブリック配数
-    public Sprite[] Chara_Image = new Sprite[4];
+    public GameObject Center, AgreePanel, StatusPanel, Text_obj;
+    public CharaDataBase cdb;
+    //プライベート配列
+    Text[] status_text = new Text[4];
 /******************************関数*****************************/
     void Start () {
+        
         CenterAnim = Center.GetComponent<Animator>();
-	}
+        StatusAnim = StatusPanel.GetComponent<Animator>();
+        SelectAnim = AgreePanel.GetComponent<Animator>();
+        for (int i = 0; i < 4; i++) status_text[i] = Text_obj.transform.GetChild(i).GetComponent<Text>();
+    }
 	void Update () {
-        KeyGet(Input.mousePosition);
+        KeyGet(Input.mousePosition);        
 	}
-    
     //入力関係
     void KeyGet(Vector2 mpos) {
         if (Input.GetMouseButtonDown(0)){
@@ -51,34 +52,8 @@ public class CS_Director : MonoBehaviour {
             if (-30 > dirY) dir = "down";
         }else dir = "touch";
         DIR = dir;
-        switch (dir) {
-            case "left":
-                CenterAnim.SetTrigger("Trigger");
-                break;
-            case "right":
-                float y = Center.transform.eulerAngles.y;
-                AnimCheckTrigger(y);
-                break;
-        }
-    }
-    void AnimCheckTrigger(float angle) {
-        switch ((int)angle) {
-            case 0:
-                CenterAnim.SetTrigger("Chara1-H");
-                break;
-            case 72:
-                CenterAnim.SetTrigger("H-Chara4");
-                break;
-            case 144:
-                CenterAnim.SetTrigger("Chara4-3");
-                break;
-            case 216:
-                CenterAnim.SetTrigger("Chara3-2");
-                break;
-            case 288:
-                CenterAnim.SetTrigger("Chara2-1");
-                break;
-        }
+        if (dir == "left") CenterAnim.SetTrigger("Trigger");
+        else if (dir == "right") CenterAnim.SetTrigger("BackTrigger");
     }
 
 //↓↓↓↓↓↓↓↓↓↓↓↓↓ボタン関連↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
@@ -90,42 +65,40 @@ public class CS_Director : MonoBehaviour {
     public void CharaSelect(GameObject obj_b) {
         if (DIR == "touch"){
             GameObject obj = AgreePanel.transform.Find("SelectChara_Img").gameObject;
-            Chara_num = Chara_name(obj_b.name);
-            obj.GetComponent<Image>().sprite = Chara_Image[Chara_num];
-            animator = AgreePanel.GetComponent<Animator>();
-            animator.SetTrigger("OpenTrigger");
+            for (int i = 0; i < Chara_Max; i++){
+                if (obj_b.name == cdb.CharaDataList[i].Get_NAME()) {
+                    s_cd = cdb.CharaDataList[i];
+                    break;
+                }
+            }
+            obj.GetComponent<Image>().sprite = s_cd.Get_CharaImage();
+            SelectAnim.SetTrigger("OpenTrigger");
         }
     }
-    short Chara_name(string str) {
-        switch (str) {
-            case "Chara1":
-                return 0;
-            case "Chara2":
-                return 1;
-            case "Chara3":
-                return 2;
-            case "Chara4":
-                return 3;
-        }
-        return -1;
-    }
+    
     //AgreePanelのボタン
     public void Select() {
-        PlayerPrefs.SetInt("SelectCharactor", Chara_num);
+        PlayerPrefs.SetInt("SelectCharactor", s_cd.Get_ID());
         SceneManager.LoadScene("HomeScene");
     }
     public void Status_B() {
-        animator = StatusPanel.GetComponent<Animator>();
-        animator.SetTrigger("OS_Trigger");
+        GameObject obj = StatusPanel.transform.Find("CharaStatus_Img").gameObject;
+        obj.GetComponent<Image>().sprite = s_cd.Get_CharaImage();
+        Lv = PlayerPrefs.GetInt("Chara_" + s_cd.Get_NAME() + "_Lv");
+        Exp = PlayerPrefs.GetInt("Chara_" + s_cd.Get_NAME() + "_HaveExp");
+        int ix = 0;
+        status_text[ix++].text = "LV:" + Lv;
+        status_text[ix++].text = "HP:" + s_cd.Get_HP(Lv);
+        status_text[ix++].text = "ATK:" + s_cd.Get_ATK(Lv);
+        status_text[ix++].text = "レベルアップまで" + (s_cd.Get_TOTAL_EXP(Lv + 1) - Exp);
+        StatusAnim.SetTrigger("OS_Trigger");
     }
     public void Cancel_B() {
-        animator = AgreePanel.GetComponent<Animator>();
-        animator.SetTrigger("CloseTrigger");
+        SelectAnim.SetTrigger("CloseTrigger");
     }
     //StatusPanelのボタン
     public void StatusBack() {
-        animator = StatusPanel.GetComponent<Animator>();
-        animator.SetTrigger("CS_Trigger");
+        StatusAnim.SetTrigger("CS_Trigger");
     }
 //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 }
