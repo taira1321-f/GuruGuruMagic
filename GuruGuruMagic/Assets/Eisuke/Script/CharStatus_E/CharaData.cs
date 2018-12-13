@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName="Player/CreateData")]
 [System.Serializable]
 public class CharaData : ScriptableObject
 {

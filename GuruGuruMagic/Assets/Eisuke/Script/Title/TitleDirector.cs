@@ -6,19 +6,20 @@ public class TitleDirector : MonoBehaviour {
     Animator Title_anim;
     bool Flash_flg;
     short cnt = 0;
-    //CharaData[] cd = new CharaData[4];
+    CharaData[] cd = new CharaData[4];
     //パブリック変数
     public GameObject Rogo;
     public GameObject Canvas;
-    //public CharaDataBase cdb;
-    void Awake() {
-        //for (int i = 0; i < 4; i++)
-        //{
-        //    cd[i] = cdb.CharaDataList[i];
-        //    PlayerPrefs.SetInt("Chara_" + cd[i].Get_NAME() + "_Lv", 1);
-        //    PlayerPrefs.SetInt("Chara_" + cd[i].Get_NAME() + "_HaveExp", 0);
-        //}
-        //PlayerPrefs.Save();
+    public CharaDataBase cdb;
+    void Awake()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            cd[i] = cdb.CharaDataList[i];
+            PlayerPrefs.SetInt("Chara_" + cd[i].Get_NAME() + "_Lv", 1);
+            PlayerPrefs.SetInt("Chara_" + cd[i].Get_NAME() + "_HaveExp", 0);
+        }
+        PlayerPrefs.Save();
     }
     void Start() {
         Flash_flg = true;
@@ -31,10 +32,10 @@ public class TitleDirector : MonoBehaviour {
             Flash_Text();
             if (Input.GetMouseButtonDown(0)){
                 GameObject obj = Rogo.transform.GetChild(0).gameObject;
-                Title_anim = obj.GetComponent<Animator>();
-                Title_anim.SetBool("SmallFlg", true);
                 Rg_anim = Rogo.GetComponent<Animator>();
                 Rg_anim.SetTrigger("Rolling");
+                Title_anim = obj.GetComponent<Animator>();
+                Title_anim.SetBool("SmallFlg", true);
             }
             Transform trf = Rogo.transform.GetChild(0);
             if (trf.localScale.x == 0) SceneManager.LoadScene("HomeScene");

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class ResultDirector : MonoBehaviour{
 
-    int cnt;
+    public int cnt;
     int c_ix;
     int Now_Lv = 1;
     int exp, h_exp;
@@ -23,7 +23,6 @@ public class ResultDirector : MonoBehaviour{
 
     void Start() {
         c_ix = PlayerPrefs.GetInt("SelectCharactor");
-        Debug.Log(c_ix);
         s_cd = cdb.CharaDataList[c_ix];
         CharaCheck(s_cd, c_ix);
         exp = PlayerPrefs.GetInt("getExp");
@@ -33,7 +32,6 @@ public class ResultDirector : MonoBehaviour{
         Slider_Adjustment(Now_Lv);
         Rusult_Check(0);
         cnt = 0;
-        
     }
     void CharaCheck(CharaData cd,int id) {
         Now_Lv = PlayerPrefs.GetInt("Chara_" + cd.Get_NAME() + "_Lv");
@@ -61,28 +59,43 @@ public class ResultDirector : MonoBehaviour{
         Exp_Cnt();
     }
     void Exp_Cnt() {
-        if ((h_exp + cnt) < e_slider.minValue) Now_Lv++;
-        else if (cnt < exp){
-            int t_exp = (cnt++) + h_exp;
+        int t_exp;
+        if (cnt < exp){
+            cnt++;
+            t_exp = cnt + h_exp;
             e_slider.value = t_exp;
-            if (t_exp == e_slider.maxValue)
-            {
-                lu_anim.SetBool("Scale_Flg", true);
+            if (e_slider.value == e_slider.maxValue){
                 if (Input.GetMouseButtonDown(0)){
-                    lu_anim.SetBool("Scale_Flg", false);
                     Now_Lv++;
                     Slider_Adjustment(Now_Lv);
+                    lu_anim.SetBool("Scale_Flg", false);
+                    return;
+                }
+                lu_anim.SetBool("Scale_Flg", true);
+            }
+        }else if(cnt == exp){
+            t_exp = exp + h_exp;
+            if (t_exp == e_slider.maxValue) {
+                lu_anim.SetBool("Scale_Flg", true);
+                if (Input.GetMouseButtonDown(0)) {
+                    lu_anim.SetBool("Scale_Flg", false);                
+                    Now_Lv++;
+                    Slider_Adjustment(Now_Lv);
+                    Exp_Lv_Save(Now_Lv,t_exp);
+                    SceneManager.LoadScene("HomeScene");
+                }
+            }else{
+                if (Input.GetMouseButtonDown(0)) {
+                    Debug.Log("ホームへ");
                 }
             }
-        }else if (cnt == exp){
-            if (Input.GetMouseButtonDown(0)){
-                lu_anim.SetBool("Scale_Flg", false);
-                PlayerPrefs.SetInt("Chara_" + s_cd.Get_NAME() + "_Lv", Now_Lv);
-                PlayerPrefs.SetInt("Chara_" + s_cd.Get_NAME() + "_HaveExp", cnt + h_exp);
-                PlayerPrefs.Save();
-                SceneManager.LoadScene("HomeScene");
-            }
         }
+    }
+    void Exp_Lv_Save(int lv,int haveExp) {
+        string c_name = s_cd.Get_NAME();
+        PlayerPrefs.SetInt("Chara_" + c_name + "_Lv", lv);
+        PlayerPrefs.SetInt("Chara_" + c_name + "_HaveExp", haveExp);
+        PlayerPrefs.Save();
     }
 }
 

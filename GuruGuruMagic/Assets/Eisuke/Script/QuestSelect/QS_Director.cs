@@ -71,10 +71,8 @@ public class QS_Director : MonoBehaviour {
     }
     public void QS_Button(GameObject obj) {
         if (DIR == "touch"){
-            Debug.Log(obj.name);
             int i = QS_Select(obj.name);
             PlayerPrefs.SetInt("SelectStage", i);
-            Debug.Log(i);
             SceneManager.LoadScene("ResultScene");
         }
     }
