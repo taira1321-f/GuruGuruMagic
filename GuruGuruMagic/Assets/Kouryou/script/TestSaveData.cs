@@ -14,10 +14,10 @@ public class TestSaveData : MonoBehaviour {
       //  GameObject obj = new GameObject("Canvas");
         savedata = new TestSave();
 
-        //savedata.SetHP(100);
-        //savedata.SetATK(10);
-        //savedata.SetLV(1);
-        //savedata.SetEXP(0);
+        savedata.SetHP(100);
+        savedata.SetATK(10);
+        savedata.SetLV(1);
+        savedata.SetEXP(0);
         //savedata.SetELEMENT(null);
         //savedata.SetFlg(true);
         //savedata.SetObj(obj);

@@ -73,7 +73,7 @@ public class QS_Director : MonoBehaviour {
         if (DIR == "touch"){
             int i = QS_Select(obj.name);
             PlayerPrefs.SetInt("SelectStage", i);
-            SceneManager.LoadScene("ResultScene");
+            SceneManager.LoadScene("Main");
         }
     }
     short QS_Select(string str) {

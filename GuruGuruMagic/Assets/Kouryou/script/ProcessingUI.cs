@@ -8,7 +8,7 @@ public class ProcessingUI : MonoBehaviour {
     [SerializeField]
     private Text dataText;
 
-    private TestSaveData Testdata;
+  //  private TestSaveData Testdata;
 
     [SerializeField]
     private InputField HPField;
@@ -21,7 +21,7 @@ public class ProcessingUI : MonoBehaviour {
 
     void Start()
     {
-        Testdata = GetComponent<TestSaveData>();
+       // Testdata = GetComponent<TestSaveData>();
     }
 
     //　データ表示のテキストを空にする

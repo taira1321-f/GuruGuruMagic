@@ -30,7 +30,8 @@ public class ResultDirector : MonoBehaviour{
         Application.targetFrameRate = 30;
         obj_Component();
         Slider_Adjustment(Now_Lv);
-        Rusult_Check(0);
+        int r = PlayerPrefs.GetInt("result");
+        Rusult_Check(r);
         cnt = 0;
     }
     void CharaCheck(CharaData cd,int id) {

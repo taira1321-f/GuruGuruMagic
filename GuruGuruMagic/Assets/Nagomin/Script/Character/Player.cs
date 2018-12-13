@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Player : PlayerBase {
 
     [SerializeField]
     CharaData player;
 
+    public GameObject play_hp;
+    public CharaDataBase cdb;
+    public Sprite[] c_Img = new Sprite[4];
+    
+    Slider p_slider;
     rotarScript2 Guruguru;
     SpellRecipe2 Recipe;
     Enemy[] enemy = new Enemy[3];//ステージの敵を格納する箱
@@ -14,13 +20,17 @@ public class Player : PlayerBase {
 
     void Start()
     {
+        int c = PlayerPrefs.GetInt("SelectCharactor");
+        player = cdb.CharaDataList[c];
         Initialize(player);
         Guruguru = GameObject.Find("hitArea").GetComponent<rotarScript2>();
         Recipe = GameObject.Find("PotWater").GetComponent<SpellRecipe2>();
         enemy[0] = GameObject.Find("Enemy_01").GetComponent<Enemy>();
         enemy[1] = GameObject.Find("Enemy_02").GetComponent<Enemy>();
         enemy[2] = GameObject.Find("Enemy_03").GetComponent<Enemy>();
-         
+        p_slider = play_hp.GetComponent<Slider>();
+        p_slider.maxValue = p_slider.value = NowHP;
+        
         // 先頭の敵以外を非アクティブにする
         for (int i = 1; i < 3; i++)
         {
@@ -33,6 +43,7 @@ public class Player : PlayerBase {
 
     void Update()
     {
+        p_slider.value = NowHP;
         // 石が2個以上あれば回せる
         if (Recipe.Count() >= Recipe.stack_min)
         {
@@ -95,6 +106,8 @@ public class Player : PlayerBase {
             {
                 // ここにステージクリア処理を書く
                 Debug.Log("ボスを倒しました : ステージクリア");
+                PlayerPrefs.SetInt("result", 0);
+                SceneManager.LoadScene("ResultScene");
             }
         }
     }
@@ -110,6 +123,8 @@ public class Player : PlayerBase {
         {
             Debug.Log("プレイヤーがしにました : ゲームオーバー");
             Destroy(gameObject);
+            PlayerPrefs.SetInt("result", 1);
+            SceneManager.LoadScene("ResultScene");
         };
     }
 

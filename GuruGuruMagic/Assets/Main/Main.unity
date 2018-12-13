@@ -2408,3 +2408,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: cdabcdd4768f18e4baa4ea6b1c3ee05d, type: 2}
+  play_hp: {fileID: 2046324584}
+  cdb: {fileID: 0}
+  c_Img:
+  - {fileID: 21300000, guid: 71406a92a89b69a4195d51f2c3f91b4d, type: 3}
+  - {fileID: 21300016, guid: c2779375ce1c5dc45bd6d73d50526384, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
