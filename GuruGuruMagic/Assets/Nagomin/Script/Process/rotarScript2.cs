@@ -44,6 +44,7 @@ public class rotarScript2 : MonoBehaviour
     private float fW_M_Distance;//水とマウスの距離
 
     private bool isMouseUp = true;//マウスフラグ、最初のクリックを区別させる
+    public bool isAttackFlg = false;//攻撃回数の制御用
 
     ////デバッグ用
     //private short kari_Status;//仮のステータス
@@ -64,32 +65,32 @@ public class rotarScript2 : MonoBehaviour
         fSpinNum = 0;
     }
 
-    //仮のゲームステータス的な 結合するときは消してください
-    void Update()
-    {
-        Vector3 Apos = Water_Object.transform.position;
-        Vector3 Bpos = Input.mousePosition;
-        fW_M_Distance = Vector3.Distance(Apos, Bpos);
+    ////仮のゲームステータス的な 結合するときは消してください
+    //void Update()
+    //{
+    //    Vector3 Apos = Water_Object.transform.position;
+    //    Vector3 Bpos = Input.mousePosition;
+    //    fW_M_Distance = Vector3.Distance(Apos, Bpos);
 
-        ////デバッグ用---実装時消去
-        //jikan.text = fSpinTime.ToString();
-        //newSpinNum.text = fNewSpinNum.ToString();
-        //oldSpinNum.text = fOldSpinNum.ToString();
-        //spinNum.text = fSpinNum.ToString();
-        //pawa.text = fRotatePower.ToString();
-        //pasento.text = kari_percent.ToString();
-        //mizumasu.text = fW_M_Distance.ToString();
-        //anguru.text = fNewAngle.ToString();
+    //    ////デバッグ用---実装時消去
+    //    //jikan.text = fSpinTime.ToString();
+    //    //newSpinNum.text = fNewSpinNum.ToString();
+    //    //oldSpinNum.text = fOldSpinNum.ToString();
+    //    //spinNum.text = fSpinNum.ToString();
+    //    //pawa.text = fRotatePower.ToString();
+    //    //pasento.text = kari_percent.ToString();
+    //    //mizumasu.text = fW_M_Distance.ToString();
+    //    //anguru.text = fNewAngle.ToString();
 
-        //if (isEndGuruGuru()) kari_percent = getGuruguru();
-        ////ココまで
+    //    ////ココまで
 
-        //他のスクリプトで管理する場合は削除
-        Guru();
-        //ココまで
+    //    //他のスクリプトで管理する場合は削除
+    //    //Guru();
+    //    //if (isEndGuruGuru()) getGuruguru();
+    //    //ココまで
 
 
-    }
+    //}
 
     //ぐるぐるするやつ
     public void Guru()
@@ -104,7 +105,6 @@ public class rotarScript2 : MonoBehaviour
             // それが操作範囲内にあるか？
             if (Physics.Raycast(ray, out hit) && (hit.transform.name == "hitArea"))
             {
-                Debug.Log("true");
                 // ダミーを常にあたった方向に向かせる
                 Dummy_Pointer.LookAt(hit.point);
                 
@@ -190,7 +190,9 @@ public class rotarScript2 : MonoBehaviour
         //十分回したら
         if (fNewSpinNum > SPIN_MIN)
         {
-            // Attack();
+            //回転回数を初期化
+            fNewSpinNum = 0;
+            fOldSpinNum = fSpinNum;
             return true;
         }
         return false;
@@ -206,6 +208,7 @@ public class rotarScript2 : MonoBehaviour
         //時間別のパーセントを計算
         float stage = (SPIN_PERCENT_MAX - SPIN_PERCENT_MIN) / (SPIN_TIME_MAX - SPIN_TIME_MIN);
 
+        fRotatePower = 0;
         return (fSpinTime - SPIN_TIME_MIN) * stage + SPIN_PERCENT_MIN;
     }
 }

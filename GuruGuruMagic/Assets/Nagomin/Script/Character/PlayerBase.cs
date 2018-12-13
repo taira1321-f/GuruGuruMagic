@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerBase : Character
 {
-    public override void Initialize()
+    // CharaData chara = new CharaData();
+
+    protected int exp;
+    
+    public void Initialize(CharaData chara)
     {
         level = 1;
-        maxhp = 500;
+        exp = chara.Get_TOTAL_EXP(level);
+        maxhp = chara.Get_HP(level);
         nowhp = maxhp;
-        power = 50;
+        power = chara.Get_ATK(level);
         defense = 50;
-        type = Elements.RED;
+        type = chara.Get_ATTRIBUTE();
     }
 
 }

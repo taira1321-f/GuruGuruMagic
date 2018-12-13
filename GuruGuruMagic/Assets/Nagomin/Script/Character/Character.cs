@@ -7,33 +7,32 @@ public abstract class Character : MonoBehaviour
     public enum Elements
     {
         NONE,
-        RED,
-        BLUE,
-        GREEN,
+        FIRE,
+        THUNDER,
+        WATER,
         VENOM,
         HEAL,
-        PHEAL,
-        JAMA,
+        SLOW,
         BUFF,
         GUARD,
         BOOST,
     }
 
+
     /* 属性の相性的な
      * 要素はダメージの倍率
      */
-    protected float[,] damageRate = new float[,] {
-        { 1.0f, 0.5f, 1.5f },   // 赤
-        { 1.5f, 1.0f, 0.5f },   // 青
-        { 0.5f, 1.5f, 1.0f },   // 緑
-    };
 
-
+    protected string name;     // キャラの名前
     protected int level;                       // キャラのレベル
     protected int maxhp;                    // キャラの最大HP
     public int MaxHP
     {
-        get;
+        get { return maxhp; }
+        set
+        {
+            maxhp = value;
+        }
     }
     protected int nowhp;                    // キャラの現在のHP 0になると死ぬ
     public int NowHP
@@ -46,15 +45,25 @@ public abstract class Character : MonoBehaviour
     }
     protected int power;                     // キャラの攻撃力
     protected int defense;                  // キャラの防御力
-    protected Elements type;             // キャラの属性
+    protected string type;             // キャラの属性
 
-    public abstract void Initialize();
+    struct status
+    {
+        bool IsVenom;
+        bool IsDVenom;
+        bool IsSlow;
+        bool IsSlow2;
+        bool IsBuff;
+        int BoostCnt;
+    }
+
+    // public abstract void Initialize();
 
 
     // 死んでるかどうかの判定
-    public bool IsDead()
+    public bool IsDead(int hp)
     {
-        if (nowhp <= 0) return true;
+        if (hp <= 0) return true;
         return false;
     }
 
